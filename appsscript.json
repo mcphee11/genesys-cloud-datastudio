@@ -1,0 +1,21 @@
+{
+  "timeZone": "Australia/Sydney",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "OAuth2",
+      "libraryId": "1B7FSrk5Zi6L1rSxxTDgDEUsPzlukDsi4KGuTMorsTQHhGBzBkMun4iDF",
+      "version": "38"
+    }]
+  },
+    "dataStudio": {
+    "name": "Genesys Cloud",
+    "logoUrl": "https://marketplace.mypurecloud.com/7e589710-529e-4c71-93df-254b3d37a08e/applogo_ed96b911.png",
+    "company": "Genesys",
+    "companyUrl": "https://genesys.com",
+    "addonUrl": "https://github.com/mcphee11/genesys-cloud-datastudio",
+    "supportUrl": "https://github.com/mcphee11/genesys-cloud-datastudio",
+    "description": "This connector is a POC for connecting to Genesys Cloud via platform APIs"
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
