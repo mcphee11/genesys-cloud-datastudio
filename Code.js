@@ -1,4 +1,4 @@
-// Google DataStudio connector example to Genesys Cloud Analytics API.
+// Google DataStudio connector example to Genesys Cloud API.
 //
 // created with help of https://github.com/googledatastudio/community-connectors/tree/master/JSON-connect
 
