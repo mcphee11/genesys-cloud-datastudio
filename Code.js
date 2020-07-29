@@ -103,7 +103,7 @@ function getConfig(request) {
   
   config
     .newTextInput()
-    .setId('client_id')
+    .setId('clientid')
     .setName('Enter clientID of "client_credentials')
     .setHelpText('e.g. found in Genesys Cloud ORG')
     .setPlaceholder('');
@@ -171,7 +171,7 @@ function getConfig(request) {
 function fetchJSON(url, method, body) {
   try {
     var service = getService();
-    console.log('method: ' + method);
+    console.log('method: ' + method + ' token: '+service.getAccessToken());
     if(method == 'GET'){
     var response = UrlFetchApp.fetch(url, { method : 'get',
                                            contentType : 'application/json; charset=UTF-8',
@@ -210,15 +210,8 @@ function fetchData(url, method, body) {
   if (!url || !url.match(/^https?:\/\/.+$/g)) {
     sendUserError('"' + url + '" is not a valid url.');
   }
-  try {
-    var content = fetchJSON(url, method, body);
-  } catch (e) {
-    sendUserError(
-      'Error: ' + e
-    );
-  }
+  var content = fetchJSON(url, method, body);
   if (!content) sendUserError('"' + url + '" returned no content.');
-
   return content;
 }
 
@@ -344,7 +337,10 @@ function getFields(request, content) {
  * @returns {Object} Schema for the given request.
  */
 function getSchema(request) {
-  console.log('getSchema: ' + 'https://api.' + request.configParams.domain + request.configParams.url + ' method: '+ request.configParams.method + ' body: '+ request.configParams.body);
+  CLIENT_ID = request.configParams.clientid;
+  CLIENT_SECRET = request.configParams.secret;
+  DOMAIN = request.configParams.domain;
+  Logger.log('getSchema: ' + 'https://api.' + request.configParams.domain + request.configParams.url + ' method: '+ request.configParams.method + ' body: '+ request.configParams.body);
   var content = fetchData('https://api.' + request.configParams.domain + request.configParams.url, request.configParams.method, request.configParams.body);
   var fields = getFields(request, content).build();
   return {schema: fields};
@@ -512,7 +508,8 @@ function reset() {
 * Configures the service.
 */
 function getService() {
-  return OAuth2.createService('PureCloud')
+  Logger.log('OAuth2 Domain: '+DOMAIN);
+  return OAuth2.createService('GenesysCloud')
   // Set the endpoint URLs.
   .setTokenUrl('https://login.' + DOMAIN + '/oauth/token')
   
